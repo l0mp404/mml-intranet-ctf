@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Espace agents | Mutuelle des Monts du Lyonnais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#E6ECF1; --panel:#FFFFFF; --ink:#1B2B3F; --muted:#5B6B7D;
+  --brand:#1F3A5F; --brand-ink:#FFFFFF; --accent:#2F6F9F; --line:#C9D4DE;
+  --ok:#2E7D4F; --err:#B4361C; --field:#F7F9FB;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#121A23; --panel:#1A2531; --ink:#E3EAF1; --muted:#94A4B5;
+    --brand:#0E1E31; --brand-ink:#E3EAF1; --accent:#6FA8D6; --line:#2C3B4B;
+    --ok:#6CC495; --err:#F08A6E; --field:#141E28;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#121A23; --panel:#1A2531; --ink:#E3EAF1; --muted:#94A4B5;
+  --brand:#0E1E31; --brand-ink:#E3EAF1; --accent:#6FA8D6; --line:#2C3B4B;
+  --ok:#6CC495; --err:#F08A6E; --field:#141E28;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:16px;line-height:1.5}
+header{background:var(--brand);color:var(--brand-ink);padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.logo{display:flex;align-items:center;gap:12px}
+.logo svg{flex:none}
+.logo b{font-weight:800;font-size:1.05rem;display:block;line-height:1.2}
+.logo span{font-size:.85rem;opacity:.75}
+.who{font-size:.85rem;opacity:.85}
+.wrap{max-width:1040px;margin:0 auto;padding:24px;display:grid;
+  grid-template-columns:240px 1fr;gap:24px;align-items:start}
+nav{background:var(--panel);border:1px solid var(--line);border-radius:6px;overflow:hidden}
+nav h2{font-size:.85rem;font-weight:600;color:var(--muted);margin:0;padding:14px 16px 8px}
+nav button{display:flex;width:100%;align-items:center;justify-content:space-between;gap:8px;
+  background:none;border:0;border-top:1px solid var(--line);color:var(--ink);
+  font:inherit;text-align:left;padding:12px 16px;cursor:pointer}
+nav button:hover{background:var(--field)}
+nav button[aria-current="true"]{background:var(--field);box-shadow:inset 3px 0 0 var(--accent);font-weight:600}
+nav .st{font-size:.8rem;color:var(--muted)}
+nav .st.done{color:var(--ok);font-weight:600}
+.progress{padding:14px 16px;border-top:1px solid var(--line);font-size:.85rem;color:var(--muted)}
+.progress strong{color:var(--ink)}
+main{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:28px;min-height:360px}
+main h1{font-size:1.5rem;font-weight:800;margin:0 0 4px;letter-spacing:-.01em}
+main .sub{color:var(--muted);margin:0 0 24px;max-width:60ch}
+section[hidden]{display:none}
+form{display:grid;gap:14px;max-width:360px}
+label{display:grid;gap:4px;font-size:.9rem;font-weight:600}
+input{font:inherit;padding:10px 12px;border:1px solid var(--line);border-radius:4px;
+  background:var(--field);color:var(--ink);font-weight:400}
+input:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.btn{font:inherit;font-weight:600;background:var(--accent);color:#fff;border:0;border-radius:4px;
+  padding:10px 16px;cursor:pointer;justify-self:start}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.msg{margin-top:18px;padding:12px 14px;border-radius:4px;border:1px solid var(--line);max-width:60ch}
+.msg:empty{display:none}
+.msg.err{border-color:var(--err);color:var(--err)}
+.msg.ok{border-color:var(--ok);color:var(--ok)}
+.flag{display:block;margin-top:6px;font-family:ui-monospace,Menlo,Consolas,monospace;
+  font-size:1rem;color:var(--ink);word-break:break-all}
+.note{font-size:.9rem;color:var(--muted);border-left:3px solid var(--line);padding-left:12px;margin:0 0 20px;max-width:60ch}
+footer{max-width:1040px;margin:0 auto;padding:0 24px 32px;font-size:.8rem;color:var(--muted);
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+footer button{font:inherit;background:none;border:0;color:var(--muted);text-decoration:underline;cursor:pointer;padding:0}
+@media (max-width:760px){
+  .wrap{grid-template-columns:1fr;padding:16px}
+  main{padding:20px}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">
+    <svg width="34" height="34" viewBox="0 0 34 34" aria-hidden="true">
+      <path d="M2 28 L12 12 L18 20 L23 14 L32 28 Z" fill="currentColor" opacity=".9"/>
+      <circle cx="25" cy="7" r="3" fill="currentColor" opacity=".6"/>
+    </svg>
+    <div><b>Mutuelle des Monts du Lyonnais</b><span>Espace agents</span></div>
+  </div>
+  <div class="who" id="who">Connecté : agent.accueil</div>
+</header>
+
+<div class="wrap">
+  <nav aria-label="Services">
+    <h2>Services internes</h2>
+    <button data-lvl="1" aria-current="true">Messagerie <span class="st" id="st1">Verrouillé</span></button>
+    <button data-lvl="2">Paie <span class="st" id="st2">Verrouillé</span></button>
+    <button data-lvl="3">Administration <span class="st" id="st3">Verrouillé</span></button>
+    <button data-lvl="4">Archives <span class="st" id="st4">Verrouillé</span></button>
+    <button data-lvl="5">Coffre numérique <span class="st" id="st5">Verrouillé</span></button>
+    <div class="progress"><strong id="count">0</strong> / 5 services ouverts</div>
+  </nav>
+
+  <main>
+    <!-- Niveau 1 -->
+    <section id="lvl1">
+      <h1>Messagerie</h1>
+      <p class="sub">Connectez-vous avec vos identifiants de messagerie.</p>
+      <form id="f1" autocomplete="off">
+        <!-- TODO (Kévin) : supprimer le compte de test avant mise en prod -> jmartin / Printemps2019 -->
+        <label>Identifiant <input name="u" required></label>
+        <label>Mot de passe <input name="p" type="password" required></label>
+        <button class="btn" type="submit">Se connecter</button>
+      </form>
+      <div class="msg" id="m1" role="status"></div>
+    </section>
+
+    <!-- Niveau 2 -->
+    <section id="lvl2" hidden>
+      <h1>Paie</h1>
+      <p class="sub">Accès réservé au service RH. Saisissez le code d'accès paie.</p>
+      <form id="f2" autocomplete="off">
+        <label>Code d'accès <input name="p" type="password" required></label>
+        <button class="btn" type="submit">Valider</button>
+      </form>
+      <div class="msg" id="m2" role="status"></div>
+    </section>
+
+    <!-- Niveau 3 -->
+    <section id="lvl3" hidden>
+      <h1>Administration</h1>
+      <p class="sub">Gestion des comptes agents. Votre session est vérifiée automatiquement.</p>
+      <button class="btn" id="b3" type="button">Ouvrir le panneau d'administration</button>
+      <div class="msg" id="m3" role="status"></div>
+    </section>
+
+    <!-- Niveau 4 -->
+    <section id="lvl4" hidden>
+      <h1>Archives</h1>
+      <p class="sub">Archives des dossiers adhérents (2015 à 2020). Mot de passe d'archivage requis.</p>
+      <form id="f4" autocomplete="off">
+        <label>Mot de passe d'archivage <input name="p" type="password" required></label>
+        <button class="btn" type="submit">Déverrouiller</button>
+      </form>
+      <div class="msg" id="m4" role="status"></div>
+    </section>
+
+    <!-- Niveau 5 -->
+    <section id="lvl5" hidden>
+      <h1>Coffre numérique</h1>
+      <p class="sub">Le coffre est scellé. Il s'ouvre automatiquement à la date programmée par la direction.</p>
+      <p class="note">Ouverture programmée : samedi 1er janvier 2000.</p>
+      <button class="btn" id="b5" type="button" disabled>Ouvrir le coffre</button>
+      <div class="msg" id="m5" role="status"></div>
+    </section>
+  </main>
+</div>
+
+<footer>
+  <span>Site fictif et volontairement vulnérable, conçu pour l'entraînement. Tout se passe dans ton navigateur.</span>
+  <button type="button" id="reset">Réinitialiser la progression</button>
+</footer>
+
+<script>
+(function(){
+  var h=function(s){var x=5381;for(var i=0;i<s.length;i++){x=((x*33)^s.charCodeAt(i))>>>0}return x};
+  var mk=function(n,s){return "MML{"+h(n+"|"+s).toString(16)+h(s+"|mml"+n).toString(16)+"}"};
+
+  // ---- stockage
+  var store={
+    get:function(k){try{return localStorage.getItem(k)}catch(e){return null}},
+    set:function(k,v){try{localStorage.setItem(k,v)}catch(e){}},
+    del:function(k){try{localStorage.removeItem(k)}catch(e){}}
+  };
+  function progress(){try{return JSON.parse(store.get("mml_progress")||"{}")}catch(e){return{}}}
+  function saveDone(n){var p=progress();p[n]=1;store.set("mml_progress",JSON.stringify(p));render()}
+  function render(){
+    var p=progress(),c=0;
+    for(var i=1;i<=5;i++){var el=document.getElementById("st"+i);
+      if(p[i]){el.textContent="Ouvert";el.classList.add("done");c++}else{el.textContent="Verrouillé";el.classList.remove("done")}}
+    document.getElementById("count").textContent=c;
+  }
+  function ok(n,flag){var m=document.getElementById("m"+n);m.className="msg ok";
+    m.innerHTML="Accès accordé. Drapeau :<span class='flag'></span>";m.querySelector(".flag").textContent=flag;saveDone(n)}
+  function ko(n,t){var m=document.getElementById("m"+n);m.className="msg err";m.textContent=t}
+
+  // ---- session
+  if(!store.get("mml_session")){store.set("mml_session",JSON.stringify({user:"agent.accueil",role:"agent"}))}
+
+  // ---- navigation
+  var navs=document.querySelectorAll("nav button[data-lvl]");
+  navs.forEach(function(b){b.addEventListener("click",function(){
+    navs.forEach(function(x){x.setAttribute("aria-current","false")});
+    b.setAttribute("aria-current","true");
+    for(var i=1;i<=5;i++)document.getElementById("lvl"+i).hidden=(String(i)!==b.dataset.lvl);
+  })});
+
+  // ---- niveau 1
+  document.getElementById("f1").addEventListener("submit",function(e){e.preventDefault();
+    var s=this.u.value+":"+this.p.value;
+    if(h(s)===2981581864)ok(1,mk(1,s));else ko(1,"Identifiant ou mot de passe incorrect.");
+  });
+
+  // ---- niveau 2
+  document.getElementById("f2").addEventListener("submit",function(e){e.preventDefault();
+    var cfg={service:"paie",version:"2.3.1",code:"Qm9iYnlfVGFibGVzNDI="};
+    if(this.p.value===atob(cfg.code))ok(2,mk(2,this.p.value));else ko(2,"Code d'accès invalide.");
+  });
+
+  // ---- niveau 3
+  document.getElementById("b3").addEventListener("click",function(){
+    var s;try{s=JSON.parse(store.get("mml_session")||"{}")}catch(e){s={}}
+    if(s.role==="admin")ok(3,mk(3,s.role+"@"+s.user));
+    else ko(3,"Accès refusé : le rôle « "+(s.role||"inconnu")+" » ne permet pas d'ouvrir ce panneau.");
+  });
+
+  // ---- niveau 4
+  document.getElementById("f4").addEventListener("submit",function(e){e.preventDefault();
+    var k=[74,104,117,111,100,113,103,52,60,59,58,36];
+    var d=k.map(function(c){return String.fromCharCode(c-3)}).join("");
+    if(this.p.value===d)ok(4,mk(4,d));else ko(4,"Mot de passe d'archivage incorrect.");
+  });
+
+  // ---- niveau 5
+  window.horlogeServeur=function(){return new Date()};
+  function coffre(){
+    var d=window.horlogeServeur();
+    if(d.getFullYear()===2000&&d.getMonth()===0&&d.getDate()===1)ok(5,mk(5,"2000-01-01"));
+    else ko(5,"Le coffre reste scellé jusqu'à la date programmée.");
+  }
+  document.getElementById("b5").addEventListener("click",coffre);
+
+  // ---- reset
+  document.getElementById("reset").addEventListener("click",function(){
+    store.del("mml_progress");store.set("mml_session",JSON.stringify({user:"agent.accueil",role:"agent"}));
+    for(var i=1;i<=5;i++){var m=document.getElementById("m"+i);m.textContent="";m.className="msg"}
+    document.getElementById("b5").disabled=true;render();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

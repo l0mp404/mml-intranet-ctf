@@ -6,9 +6,7 @@ Intranet fictif de la **Mutuelle des Monts du Lyonnais**, volontairement vulnér
 
 ## ▶️ Jouer
 
-👉 **[Lancer le challenge](https://l0mp444.github.io/mml-intranet-ctf/)**
-
-Ou en local : télécharge le dépôt et ouvre `index.html` dans ton navigateur. Aucun serveur ni installation nécessaire.
+En local : télécharge le dépôt et ouvre `index.html` dans ton navigateur. Aucun serveur ni installation nécessaire.
 
 ## Règles
 
